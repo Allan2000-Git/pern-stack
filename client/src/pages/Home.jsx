@@ -1,13 +1,16 @@
 import React from 'react'
 import Header from '../components/Header'
 import AddRestaurant from '../components/AddRestaurant'
+import RestaurantsTable from '../components/RestaurantsTable'
 
 const Home = () => {
     return (
         <>
-            <Header />
-            <AddRestaurant />
-            {/* <RestaurantsTable /> */}
+            <div className="container">
+                <Header />
+                <AddRestaurant />
+                <RestaurantsTable />
+            </div>
         </>
     )
 }

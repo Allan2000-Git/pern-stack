@@ -6,7 +6,7 @@ const AddRestaurant = () => {
     const [price, setPrice] = useState(0);
 
     return (
-        <div className="mt-4 container">
+        <div className="mt-5">
             <form>
                 <div className="row align-items-center">
                     <div className="col">
