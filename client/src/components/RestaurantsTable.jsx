@@ -5,6 +5,16 @@ import { useYelpContext } from '../context/YelpContext';
 const RestaurantsTable = () => {
     const {restaurants, setRestaurants} = useYelpContext();
 
+    const handleDelete = async (restaurantId) => {
+        try {
+            await yelpApi.delete(`/${restaurantId}`);
+            const allRestaurants = restaurants.filter(restaurant => restaurant.id !== restaurantId);
+            setRestaurants(allRestaurants);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -40,7 +50,7 @@ const RestaurantsTable = () => {
                                 <td>{restaurant.price}</td>
                                 <td className="d-flex gap-3">
                                     <button className="btn btn-warning" type="button">Edit</button>
-                                    <button className="btn btn-danger" type="button">Delete</button>
+                                    <button onClick={() => handleDelete(restaurant.id)} className="btn btn-danger" type="button">Delete</button>
                                 </td>
                             </tr>
                         ))
