@@ -45,7 +45,7 @@ const AddRestaurant = () => {
                             <option value="5">$$$$$</option>
                         </select> */}
                         <div className="d-flex gap-3">
-                            <input onChange={(e) => setPrice(Number(e.target.value))} type="range" name="price" min={1} max={5} />
+                            <input value={price} onChange={(e) => setPrice(Number(e.target.value))} type="range" name="price" min={1} max={5} />
                             <label className="">{price}</label>
                         </div>
                     </div>

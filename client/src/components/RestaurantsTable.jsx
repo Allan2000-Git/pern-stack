@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import yelpApi from '../api/yelpApi';
 import { useYelpContext } from '../context/YelpContext';
+import {useNavigate} from "react-router-dom";
 
 const RestaurantsTable = () => {
     const {restaurants, setRestaurants} = useYelpContext();
+    const navigate = useNavigate();
 
     const handleDelete = async (restaurantId) => {
         try {
@@ -49,7 +51,7 @@ const RestaurantsTable = () => {
                                 <td>5</td>
                                 <td>{restaurant.price}</td>
                                 <td className="d-flex gap-3">
-                                    <button className="btn btn-warning" type="button">Edit</button>
+                                    <button onClick={() => navigate(`restaurants/${restaurant.id}/edit`)} className="btn btn-warning" type="button">Edit</button>
                                     <button onClick={() => handleDelete(restaurant.id)} className="btn btn-danger" type="button">Delete</button>
                                 </td>
                             </tr>
