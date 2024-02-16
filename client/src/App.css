@@ -3,3 +3,7 @@ tr {
     min-height: 35px;
     height: 35px;
 }
+
+.thead-row{
+    background-color: darkcyan !important;
+}

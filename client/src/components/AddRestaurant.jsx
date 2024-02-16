@@ -1,13 +1,33 @@
 import React, { useState } from 'react'
+import yelpApi from '../api/yelpApi';
+import { useYelpContext } from '../context/YelpContext';
 
 const AddRestaurant = () => {
+    const {addRestaurant} = useYelpContext();
+
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [price, setPrice] = useState(0);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const newRestaurant = await yelpApi.post("/", {
+                name,
+                location,
+                price
+            });
+
+            addRestaurant(newRestaurant);
+        } catch (error) {
+            console.log("Error while submitting the form: ", error);
+        }
+    }
+
     return (
         <div className="mt-5">
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="row align-items-center">
                     <div className="col">
                         <input value={name} onChange={(e) => setName(e.target.value)} type="text" className="form-control" placeholder="Name" />
@@ -25,7 +45,7 @@ const AddRestaurant = () => {
                             <option value="5">$$$$$</option>
                         </select> */}
                         <div className="d-flex gap-3">
-                            <input onChange={(e) => setPrice(e.target.value)} type="range" name="price" min={1} max={5} />
+                            <input onChange={(e) => setPrice(Number(e.target.value))} type="range" name="price" min={1} max={5} />
                             <label className="">{price}</label>
                         </div>
                     </div>
