@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useYelpContext } from '../context/YelpContext';
 import { useParams, useNavigate} from "react-router-dom";
 import yelpApi from '../api/yelpApi';
+import StarRating from '../components/StarRating';
 
 const RestaurantDetail = () => {
     const {id} = useParams();
@@ -20,11 +21,10 @@ const RestaurantDetail = () => {
         fetchData();
     },[])
 
-    console.log(selectedRestaurant);
-
     return (
         <div className="container mt-5">
             <h1 className="text-center">{selectedRestaurant && selectedRestaurant.name}</h1>
+            <StarRating rating={4.9} />
         </div>
     )
 }
