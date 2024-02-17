@@ -54,8 +54,8 @@ const RestaurantsTable = () => {
                             <tr onClick={() => navigate(`/restaurants/${restaurant.id}`)} key={restaurant.id}>
                                 <td>{restaurant.name}</td>
                                 <td>{restaurant.location}</td>
-                                <td>5</td>
                                 <td>{restaurant.price}</td>
+                                <td>5</td>
                                 <td className="d-flex gap-3">
                                     <button onClick={(e) => handleUpdate(e, restaurant.id)} className="btn btn-warning" type="button">Edit</button>
                                     <button onClick={(e) => handleDelete(e, restaurant.id)} className="btn btn-danger" type="button">Delete</button>
