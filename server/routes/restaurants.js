@@ -14,8 +14,9 @@ router.get("/api/v1/restaurants", async (req, res) => {
 router.get("/api/v1/restaurants/:id", async (req, res) => {
     const {id} = req.params;
     try {
-        const {rows} = await db.query(`SELECT * FROM restaurants WHERE id = ${id}`);
-        res.status(200).json(rows);
+        const {rows: restaurantRows} = await db.query(`SELECT * FROM restaurants WHERE id = ${id}`);
+        const {rows: reviewRows} = await db.query(`SELECT * FROM reviews WHERE restaurant_id = ${id}`)
+        res.status(200).json({restaurantRows, reviewRows});
     } catch (error) {
         res.status(500).json("Error while fetching restaurants data: ", error);
     }
