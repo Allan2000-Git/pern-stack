@@ -11,3 +11,14 @@ tr {
 tbody tr{
     cursor: pointer;
 }
+
+.review{
+    color: #D90368;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.username{
+    color: #4E5166;
+    font-weight: 500;
+}

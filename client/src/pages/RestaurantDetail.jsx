@@ -3,6 +3,7 @@ import { useYelpContext } from '../context/YelpContext';
 import { useParams, useNavigate} from "react-router-dom";
 import yelpApi from '../api/yelpApi';
 import StarRating from '../components/StarRating';
+import ReviewCard from '../components/ReviewCard';
 
 const RestaurantDetail = () => {
     const {id} = useParams();
@@ -24,7 +25,14 @@ const RestaurantDetail = () => {
     return (
         <div className="container mt-5">
             <h1 className="text-center">{selectedRestaurant && selectedRestaurant.name}</h1>
-            <StarRating rating={4.9} />
+            
+            <div className="row mt-5">
+                <ReviewCard/>
+                <ReviewCard/>
+                <ReviewCard/>
+                <ReviewCard/>
+                <ReviewCard/>
+            </div>
         </div>
     )
 }

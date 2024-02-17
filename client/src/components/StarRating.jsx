@@ -6,11 +6,11 @@ const StarRating = ({rating}) => {
 
     for(let i=1;i<=5;i++){
         if(i <= rating){
-            stars.push(<FaStar />);
+            stars.push(<FaStar className="text-warning" size={20} />);
         } else if(i === Math.ceil(rating) && !Number.isInteger(rating)) {
-            stars.push(<FaStarHalfAlt />);
+            stars.push(<FaStarHalfAlt className="text-warning" size={20} />);
         } else {
-            stars.push(<FaRegStar />);
+            stars.push(<FaRegStar className="text-warning" size={20} />);
         }
     }
 
