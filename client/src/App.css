@@ -7,3 +7,7 @@ tr {
 .thead-row{
     background-color: darkcyan !important;
 }
+
+tbody tr{
+    cursor: pointer;
+}

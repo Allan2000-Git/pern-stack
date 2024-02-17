@@ -40,7 +40,7 @@ const RestaurantEdit = () => {
     },[])
 
     return (
-        <div  className="container mt-5">
+        <div className="container mt-5">
             <h1>Update Restaurant</h1>
             <form onSubmit={handleUpdate}>
                 <div className="form-group mt-5">

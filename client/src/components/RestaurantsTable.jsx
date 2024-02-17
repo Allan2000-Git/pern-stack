@@ -7,7 +7,13 @@ const RestaurantsTable = () => {
     const {restaurants, setRestaurants} = useYelpContext();
     const navigate = useNavigate();
 
-    const handleDelete = async (restaurantId) => {
+    const handleUpdate = (event, restaurantId) => {
+        event.stopPropagation();
+        navigate(`restaurants/${restaurantId}/edit`)
+    }
+
+    const handleDelete = async (event, restaurantId) => {
+        event.stopPropagation();
         try {
             await yelpApi.delete(`/${restaurantId}`);
             const allRestaurants = restaurants.filter(restaurant => restaurant.id !== restaurantId);
@@ -45,14 +51,14 @@ const RestaurantsTable = () => {
                 <tbody>
                     {
                         restaurants.map((restaurant) => (
-                            <tr key={restaurant.id}>
+                            <tr onClick={() => navigate(`/restaurants/${restaurant.id}`)} key={restaurant.id}>
                                 <td>{restaurant.name}</td>
                                 <td>{restaurant.location}</td>
                                 <td>5</td>
                                 <td>{restaurant.price}</td>
                                 <td className="d-flex gap-3">
-                                    <button onClick={() => navigate(`restaurants/${restaurant.id}/edit`)} className="btn btn-warning" type="button">Edit</button>
-                                    <button onClick={() => handleDelete(restaurant.id)} className="btn btn-danger" type="button">Delete</button>
+                                    <button onClick={(e) => handleUpdate(e, restaurant.id)} className="btn btn-warning" type="button">Edit</button>
+                                    <button onClick={(e) => handleDelete(e, restaurant.id)} className="btn btn-danger" type="button">Delete</button>
                                 </td>
                             </tr>
                         ))
