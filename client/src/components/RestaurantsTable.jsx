@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import yelpApi from '../api/yelpApi';
-import { useYelpContext } from '../context/YelpContext';
+import { useYelpContext } from '../context/yelpContext';
 import {useNavigate} from "react-router-dom";
+import StarRating from './StarRating';
 
 const RestaurantsTable = () => {
     const {restaurants, setRestaurants} = useYelpContext();
@@ -21,6 +22,18 @@ const RestaurantsTable = () => {
         } catch (error) {
             console.log(error.message);
         }
+    }
+
+    const showRatings = (restaurant) => {
+        if(restaurant.total_reviews === 0){
+            return <span className="text-warning">0 reviews</span>
+        }
+        return(
+            <div className="d-flex align-items-center gap-2">
+                <StarRating rating={restaurant.avg_rating} />
+                <span className="text-warning">({restaurant.total_reviews})</span>
+            </div>
+        )
     }
 
     useEffect(() => {
@@ -50,12 +63,12 @@ const RestaurantsTable = () => {
                 </thead>
                 <tbody>
                     {
-                        restaurants.map((restaurant) => (
+                        restaurants?.map((restaurant) => (
                             <tr onClick={() => navigate(`/restaurants/${restaurant.id}`)} key={restaurant.id}>
                                 <td>{restaurant.name}</td>
                                 <td>{restaurant.location}</td>
                                 <td>{restaurant.price}</td>
-                                <td>5</td>
+                                <td>{showRatings(restaurant)}</td>
                                 <td className="d-flex gap-3">
                                     <button onClick={(e) => handleUpdate(e, restaurant.id)} className="btn btn-warning" type="button">Edit</button>
                                     <button onClick={(e) => handleDelete(e, restaurant.id)} className="btn btn-danger" type="button">Delete</button>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import yelpApi from '../api/yelpApi';
-import { useYelpContext } from '../context/YelpContext';
+import { useYelpContext } from '../context/yelpContext';
 
 const AddRestaurant = () => {
     const {addRestaurant} = useYelpContext();

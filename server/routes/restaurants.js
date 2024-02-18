@@ -4,7 +4,7 @@ const db = require('../db/index')
 
 router.get("/api/v1/restaurants", async (req, res) => {
     try {
-        const {rows} = await db.query('SELECT * FROM restaurants');
+        const {rows} = await db.query('select * from restaurants left join (select restaurant_id, count(*) as total_reviews, trunc(avg(rating),1) as avg_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id');
         res.status(200).json(rows);
     } catch (error) {
         res.status(500).json("Error while fetching restaurants data: ", error);
@@ -14,7 +14,7 @@ router.get("/api/v1/restaurants", async (req, res) => {
 router.get("/api/v1/restaurants/:id", async (req, res) => {
     const {id} = req.params;
     try {
-        const {rows: restaurantRows} = await db.query(`SELECT * FROM restaurants WHERE id = ${id}`);
+        const {rows: restaurantRows} = await db.query(`select * from restaurants left join (select restaurant_id, count(*) as total_reviews, trunc(avg(rating),1) as avg_rating from reviews group by restaurant_id) reviews on restaurants.id = reviews.restaurant_id where id = ${id}`);
         const {rows: reviewRows} = await db.query(`SELECT * FROM reviews WHERE restaurant_id = ${id}`)
         res.status(200).json({restaurantRows, reviewRows});
     } catch (error) {
@@ -50,6 +50,19 @@ router.delete("/api/v1/restaurants/:id", async (req, res) => {
         res.status(200).json(`Row with id: ${id} deleted successfully`);
     } catch (error) {
         res.status(500).json("Error while deleting restaurant data: ", error);
+    }
+})
+
+// Reviews
+
+router.post("/api/v1/restaurants/:id/review", async (req, res) => {
+    const {id: restaurant_id} = req.params;
+    const {username, review, rating} = req.body;
+    try {
+        const {rows} = await db.query("INSERT INTO reviews (restaurant_id, username, review, rating) VALUES($1, $2, $3, $4) RETURNING *", [restaurant_id, username, review, rating]);
+        res.status(201).json(rows);
+    } catch (error) {
+        res.status(500).json("Error while creating restaurant data: ", error);
     }
 })
 

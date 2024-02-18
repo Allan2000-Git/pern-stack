@@ -11,8 +11,12 @@ export const YelpContextProvider = ({children}) => {
         setRestaurants([...restaurants, newRestaurant]);
     }
 
+    const addRestaurantReview = (newRestaurantReview) => {
+        setSelectedRestaurantReview([...selectedRestaurantReview, newRestaurantReview]);
+    }
+
     return (
-        <YelpContext.Provider value={{restaurants, setRestaurants, addRestaurant, selectedRestaurant, setSelectedRestaurant, selectedRestaurantReview, setSelectedRestaurantReview}}>
+        <YelpContext.Provider value={{restaurants, setRestaurants, addRestaurant, selectedRestaurant, setSelectedRestaurant, selectedRestaurantReview, setSelectedRestaurantReview, addRestaurantReview}}>
             {children}
         </YelpContext.Provider>
     )
